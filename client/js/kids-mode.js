@@ -13,12 +13,18 @@
         var ru_vowels = "аоиеёэыуюя";
         var vowels = en_vowels + ru_vowels;
 
+        var absent = "ьъ";
+
         function tokenize(stream, state) {
             var ch = stream.next();
             if (ch == null) return null;
 
             if (vowels.indexOf(ch.toLowerCase()) !== -1) {
-                return 'number';
+                return "number";
+            }
+
+            if (absent.indexOf(ch.toLowerCase()) !== -1) {
+                return "comment";
             }
 
             return null;
