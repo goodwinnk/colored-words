@@ -5,6 +5,8 @@
     <title>Title</title>
 
     <script src="node_modules/codemirror/lib/codemirror.js"></script>
+    <script src="js/kids-mode.js"></script>
+
     <link rel="stylesheet" href="node_modules/codemirror/lib/codemirror.css">
     <link rel="stylesheet" href="css/kids-editor.css">
 </head>
@@ -16,7 +18,9 @@
     </form>
     <script>
         var textArea = document.getElementById("editor");
-        var myCodeMirror = CodeMirror.fromTextArea(textArea);
+        var myCodeMirror = CodeMirror.fromTextArea(textArea, {
+            mode: "kids"
+        });
     </script>
 </body>
 </html>
