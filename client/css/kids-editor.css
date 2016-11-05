@@ -1,6 +1,7 @@
 .CodeMirror {
     font-size: xx-large;
     font-family: sans-serif;
+    height: 100%;
 }
 
 .cm-s-default .cm-number {color: #e21f1a;}
