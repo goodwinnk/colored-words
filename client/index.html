@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="node_modules/codemirror/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="node_modules/codemirror/lib/codemirror.css">
+</head>
+<body>
+    <form>
+        <label>
+            <textarea id="editor">Hello World!</textarea>
+        </label>
+    </form>
+    <script>
+        var textArea = document.getElementById("editor");
+        var myCodeMirror = CodeMirror.fromTextArea(textArea);
+    </script>
+</body>
+</html>

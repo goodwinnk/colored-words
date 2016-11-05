@@ -4,5 +4,8 @@
   "description": "",
   "main": "index.html",
   "author": "Nikolay Krasko",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "codemirror": "5.20.2"
+  }
 }
