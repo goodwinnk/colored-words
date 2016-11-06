@@ -1,5 +1,5 @@
 .idea/workspace.xml
 .idea/tasks.xml
 
-client/node_modules
-client/bundle.js
+node_modules
+bundle.js
