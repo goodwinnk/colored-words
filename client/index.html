@@ -3,14 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Colored Words</title>
-
-    <script src="node_modules/codemirror/lib/codemirror.js"></script>
-    <script src="js/kids-mode.js"></script>
-
-    <script src="js/app.js"></script>
-
-    <link rel="stylesheet" href="node_modules/codemirror/lib/codemirror.css">
-    <link rel="stylesheet" href="css/kids-editor.css">
 </head>
 <body>
     <form>
@@ -18,16 +10,6 @@
             <textarea id="editor">Hello World!</textarea>
         </label>
     </form>
-    <script>
-        var textArea = document.getElementById("editor");
-        var editor = CodeMirror.fromTextArea(textArea, {
-            mode: "kids"
-        });
-
-        var value = getQueryParams(document.location.search).v;
-        if (value) {
-            editor.setValue(value);
-        }
-    </script>
+    <script type="text/javascript" src="bundle.js" charset="utf-8"></script>
 </body>
 </html>
