@@ -6,7 +6,8 @@
   "author": "Nikolay Krasko",
   "license": "MIT",
   "dependencies": {
-    "codemirror": "5.20.2"
+    "codemirror": "5.20.2",
+    "bootstrap-slider": "9.7.0"
   },
   "devDependencies": {
     "css-loader": "0.25.0",

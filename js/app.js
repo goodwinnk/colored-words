@@ -12,10 +12,21 @@ function init() {
         lineWrapping: true
     });
 
+    var editorElement = document.getElementsByClassName("CodeMirror").item(0);
+    var originalSize = parseInt(jQuery(editorElement).css("font-size"));
+
     var value = getQueryParams(document.location.search).v;
     if (value) {
         editor.setValue(value);
     }
+
+    var slider = new Slider('#fontSizeSlider', {
+        formatter: function (value) {
+        }
+    });
+    slider.on('slide', function (slideValue) {
+        jQuery(editorElement).css("font-size", originalSize + slideValue);
+    });
 }
 
 function getQueryParams(qs) {
