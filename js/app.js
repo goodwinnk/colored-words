@@ -6,7 +6,10 @@ require('./kids-mode.js');
 function init() {
     var textArea = document.getElementById("editor");
     var editor = CodeMirror.fromTextArea(textArea, {
-        mode: "kids"
+        mode: "kids",
+        indentUnit: 0,
+        smartIndent: false,
+        lineWrapping: true
     });
 
     var value = getQueryParams(document.location.search).v;
