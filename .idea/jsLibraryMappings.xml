@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <excludedPredefinedLibrary name="colored-words/client/node_modules" />
+    <file url="PROJECT" libraries="{bootstrap, jquery-3.1.1}" />
   </component>
 </project>
