@@ -26,6 +26,7 @@ function init() {
     });
     slider.on('slide', function (slideValue) {
         jQuery(editorElement).css("font-size", originalSize + slideValue);
+        editor.refresh();
     });
 }
 
