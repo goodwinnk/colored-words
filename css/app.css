@@ -34,3 +34,13 @@ body {
 .footer>a {
     color: #666
 }
+
+.smallALabel {
+    padding-right: 10px;
+    font-size: x-small;
+}
+
+.bigALabel {
+    font-size: x-large;
+    padding-left: 10px;
+}
