@@ -24,8 +24,8 @@ function init() {
         formatter: function (value) {
         }
     });
-    slider.on('slide', function (slideValue) {
-        jQuery(editorElement).css("font-size", originalSize + slideValue);
+    slider.on('change', function (diff) {
+        jQuery(editorElement).css("font-size", originalSize + diff.newValue);
         editor.refresh();
     });
 }
