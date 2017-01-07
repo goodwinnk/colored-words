@@ -4,8 +4,8 @@
     height: 100%;
 }
 
-.cm-s-default .cm-number {color: #e21f1a;}
-.cm-s-default .cm-comment {color: #109432;}
+.cm-s-default .cm-number {color: #e21f1a!important;}
+.cm-s-default .cm-comment {color: #109432!important;}
 
 html,
 body {
@@ -43,4 +43,10 @@ body {
 .bigALabel {
     font-size: x-large;
     padding-left: 10px;
+}
+
+@media print {
+    footer {
+        display: none;
+    }
 }
