@@ -58,10 +58,22 @@
 	        lineWrapping: true
 	    });
 
+	    var editorElement = document.getElementsByClassName("CodeMirror").item(0);
+	    var originalSize = parseInt(jQuery(editorElement).css("font-size"));
+
 	    var value = getQueryParams(document.location.search).v;
 	    if (value) {
 	        editor.setValue(value);
 	    }
+
+	    var slider = new Slider('#fontSizeSlider', {
+	        formatter: function (value) {
+	        }
+	    });
+	    slider.on('change', function (diff) {
+	        jQuery(editorElement).css("font-size", originalSize + diff.newValue);
+	        editor.refresh();
+	    });
 	}
 
 	function getQueryParams(qs) {
@@ -9564,7 +9576,7 @@
 
 
 	// module
-	exports.push([module.id, ".CodeMirror {\r\n    font-size: xx-large;\r\n    font-family: sans-serif;\r\n    height: 100%;\r\n}\r\n\r\n.cm-s-default .cm-number {color: #e21f1a;}\r\n.cm-s-default .cm-comment {color: #109432;}\r\n\r\nhtml,\r\nbody {\r\n    height: 100%;\r\n}\r\n\r\n.wrap {\r\n    min-height: 100%;\r\n    height: auto !important;\r\n    height: 100%;\r\n    margin: 0 auto -30px;\r\n}\r\n\r\n.footer-push,\r\n.footer {\r\n    height: 30px;\r\n}\r\n\r\n.footer {\r\n    width: 100%;\r\n    color: #666;\r\n    font-size: small;\r\n    text-align: center;\r\n}\r\n\r\n.footer>a {\r\n    color: #666\r\n}", ""]);
+	exports.push([module.id, ".CodeMirror {\r\n    font-size: xx-large;\r\n    font-family: sans-serif;\r\n    height: 100%;\r\n}\r\n\r\n.cm-s-default .cm-number {color: #e21f1a;}\r\n.cm-s-default .cm-comment {color: #109432;}\r\n\r\nhtml,\r\nbody {\r\n    height: 100%;\r\n}\r\n\r\n.wrap {\r\n    min-height: 100%;\r\n    height: auto !important;\r\n    height: 100%;\r\n    margin: 0 auto -30px;\r\n}\r\n\r\n.footer-push,\r\n.footer {\r\n    height: 30px;\r\n}\r\n\r\n.footer {\r\n    width: 100%;\r\n    color: #666;\r\n    font-size: small;\r\n    text-align: center;\r\n}\r\n\r\n.footer>a {\r\n    color: #666\r\n}\r\n\r\n.smallALabel {\r\n    padding-right: 10px;\r\n    font-size: x-small;\r\n}\r\n\r\n.bigALabel {\r\n    font-size: x-large;\r\n    padding-left: 10px;\r\n}", ""]);
 
 	// exports
 
