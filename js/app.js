@@ -28,6 +28,10 @@ function init() {
         jQuery(editorElement).css("font-size", originalSize + diff.newValue);
         editor.refresh();
     });
+
+    jQuery('#print-button').on("click", function () {
+        window.print();
+    })
 }
 
 function getQueryParams(qs) {
