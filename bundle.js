@@ -75,9 +75,23 @@
 	        editor.refresh();
 	    });
 
-	    jQuery('#print-button').on("click", function () {
+	    jQuery('#print-button').click(function () {
 	        window.print();
-	    })
+	    });
+
+	    jQuery('#fill-vowels-button').click(function () {
+	        var span = jQuery(this).find('span');
+
+	        var style = "";
+	        if (span.hasClass("glyphicon-star")) {
+	            style =
+	                ".cm-s-default .cm-number {color: #E8E8EE!important;}\n" +
+	                ".cm-s-default .cm-comment {color: #E8E8EE!important;}";
+	        }
+	        jQuery('#print').text(style);
+
+	        span.toggleClass("glyphicon-star").toggleClass("glyphicon-star-empty");
+	    });
 	}
 
 	function getQueryParams(qs) {
