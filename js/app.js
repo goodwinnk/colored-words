@@ -13,6 +13,26 @@ function init() {
         autofocus: true
     });
 
+    var keyIsDown = {};
+    editor.on("keydown", function(cm, evt) {
+        var code = evt.keyCode;
+        if (evt.repeat || keyIsDown[code]) {
+            console.log("repeat " + code + " " + evt.repeat);
+            evt.preventDefault();
+            return;
+        }
+
+        keyIsDown[code] = true;
+        console.log("keydown " + code)
+    });
+
+    editor.on("keyup", function(cm, evt) {
+        var code = evt.keyCode;
+        if (keyIsDown[code]) {
+            delete keyIsDown[code];
+        }
+    });
+
     var editorElement = document.getElementsByClassName("CodeMirror").item(0);
     var originalSize = parseInt(jQuery(editorElement).css("font-size"));
 
