@@ -63,13 +63,11 @@
 	    editor.on("keydown", function(cm, evt) {
 	        var code = evt.keyCode;
 	        if (evt.repeat || keyIsDown[code]) {
-	            console.log("repeat " + code + " " + evt.repeat);
 	            evt.preventDefault();
 	            return;
 	        }
 
 	        keyIsDown[code] = true;
-	        console.log("keydown " + code)
 	    });
 
 	    editor.on("keyup", function(cm, evt) {
