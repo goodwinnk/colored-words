@@ -55,7 +55,8 @@
 	        mode: "kids",
 	        indentUnit: 0,
 	        smartIndent: false,
-	        lineWrapping: true
+	        lineWrapping: true,
+	        autofocus: true
 	    });
 
 	    var editorElement = document.getElementsByClassName("CodeMirror").item(0);
