@@ -111,6 +111,12 @@
 
 	        span.toggleClass("glyphicon-star").toggleClass("glyphicon-star-empty");
 	    });
+
+	    var isUppercaseToggled = false;
+	    jQuery('#capslock-button').click(function () {
+	        isUppercaseToggled = !isUppercaseToggled;
+	        jQuery(editorElement).css("text-transform", isUppercaseToggled ? "uppercase" : "none");
+	    });
 	}
 
 	function getQueryParams(qs) {
