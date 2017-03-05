@@ -40,6 +40,8 @@ function init() {
     }
 
     var slider = new Slider('#fontSizeSlider', {
+        tooltip: "hide",
+        tooltip_position: "bottom",
         formatter: function (value) {
         }
     });
