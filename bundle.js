@@ -93,6 +93,11 @@
 	            previousSettings.fontSize = settings.fontSize;
 	            editor.refresh();
 	        }
+	        if (previousSettings.isUpperCase !== settings.isUpperCase) {
+	            jQuery(editorElement).css("text-transform", settings.isUpperCase ? "uppercase" : "none");
+	            previousSettings.isUpperCase = settings.isUpperCase;
+	            editor.refresh();
+	        }
 	        Settings.save(settings);
 	    };
 
@@ -131,10 +136,9 @@
 	        span.toggleClass("glyphicon-star").toggleClass("glyphicon-star-empty");
 	    });
 
-	    var isUppercaseToggled = false;
 	    jQuery('#capslock-button').click(function () {
-	        isUppercaseToggled = !isUppercaseToggled;
-	        jQuery(editorElement).css("text-transform", isUppercaseToggled ? "uppercase" : "none");
+	        settings.isUpperCase = !settings.isUpperCase;
+	        Settings.apply(settings);
 	    });
 	}
 
@@ -9696,19 +9700,27 @@
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
 	    var FONT_SIZE_KEY = "font-size";
+	    var UPPERCASE_KEY = "uppercase";
 
 	    var obj = {};
 	    obj.load = function(defaultFontSize) {
 	        var fontSize = defaultFontSize;
+	        var isUpperCase = false;
 	        if (typeof(Storage) !== "undefined") {
 	            var storedFontSizeStr = localStorage.getItem(FONT_SIZE_KEY);
 	            if (storedFontSizeStr !== null) {
 	                fontSize = parseInt(storedFontSizeStr);
 	            }
+
+	            var isUpperCaseStr = localStorage.getItem(UPPERCASE_KEY);
+	            if (isUpperCaseStr !== null) {
+	                isUpperCase = (isUpperCaseStr === "true");
+	            }
 	        }
 
 	        return {
-	            fontSize: fontSize
+	            fontSize: fontSize,
+	            isUpperCase: isUpperCase
 	        };
 	    };
 
@@ -9718,6 +9730,7 @@
 	        }
 
 	        localStorage.setItem(FONT_SIZE_KEY, settings.fontSize);
+	        localStorage.setItem(UPPERCASE_KEY, settings.isUpperCase);
 	    };
 
 	    return obj;

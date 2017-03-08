@@ -47,6 +47,11 @@ function init() {
             previousSettings.fontSize = settings.fontSize;
             editor.refresh();
         }
+        if (previousSettings.isUpperCase !== settings.isUpperCase) {
+            jQuery(editorElement).css("text-transform", settings.isUpperCase ? "uppercase" : "none");
+            previousSettings.isUpperCase = settings.isUpperCase;
+            editor.refresh();
+        }
         Settings.save(settings);
     };
 
@@ -85,10 +90,9 @@ function init() {
         span.toggleClass("glyphicon-star").toggleClass("glyphicon-star-empty");
     });
 
-    var isUppercaseToggled = false;
     jQuery('#capslock-button').click(function () {
-        isUppercaseToggled = !isUppercaseToggled;
-        jQuery(editorElement).css("text-transform", isUppercaseToggled ? "uppercase" : "none");
+        settings.isUpperCase = !settings.isUpperCase;
+        Settings.apply(settings);
     });
 }
 
