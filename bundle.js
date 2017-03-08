@@ -48,6 +48,7 @@
 	__webpack_require__(2);
 	__webpack_require__(6);
 	__webpack_require__(8);
+	var Settings = __webpack_require__(9);
 
 	function init() {
 	    var textArea = document.getElementById("editor");
@@ -85,15 +86,31 @@
 	        editor.setValue(value);
 	    }
 
+	    var previousSettings = {};
+	    Settings.apply = function (settings) {
+	        if (previousSettings.fontSize !== settings.fontSize) {
+	            jQuery(editorElement).css("font-size", settings.fontSize);
+	            previousSettings.fontSize = settings.fontSize;
+	            editor.refresh();
+	        }
+	        Settings.save(settings);
+	    };
+
+	    var settings = Settings.load(originalSize);
+	    Settings.apply(settings);
+
 	    var slider = new Slider('#fontSizeSlider', {
 	        tooltip: "hide",
 	        tooltip_position: "bottom",
-	        formatter: function (value) {
-	        }
+	        min: originalSize,
+	        max: originalSize + 80,
+	        step: 1,
+	        value: settings.fontSize
 	    });
+
 	    slider.on('change', function (diff) {
-	        jQuery(editorElement).css("font-size", originalSize + diff.newValue);
-	        editor.refresh();
+	        settings.fontSize = diff.newValue;
+	        Settings.apply(settings);
 	    });
 
 	    jQuery('#print-button').click(function () {
@@ -9672,6 +9689,39 @@
 	    CodeMirror.defineMIME("text/kids", "kids");
 	});
 
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	    var FONT_SIZE_KEY = "font-size";
+
+	    var obj = {};
+	    obj.load = function(defaultFontSize) {
+	        var fontSize = defaultFontSize;
+	        if (typeof(Storage) !== "undefined") {
+	            var storedFontSizeStr = localStorage.getItem(FONT_SIZE_KEY);
+	            if (storedFontSizeStr !== null) {
+	                fontSize = parseInt(storedFontSizeStr);
+	            }
+	        }
+
+	        return {
+	            fontSize: fontSize
+	        };
+	    };
+
+	    obj.save = function (settings) {
+	        if (typeof(Storage) === "undefined") {
+	            return
+	        }
+
+	        localStorage.setItem(FONT_SIZE_KEY, settings.fontSize);
+	    };
+
+	    return obj;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }
 /******/ ]);

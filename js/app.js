@@ -2,6 +2,7 @@ var CodeMirror = require('codemirror');
 require("../node_modules/codemirror/lib/codemirror.css");
 require("../css/app.css");
 require('./kids-mode.js');
+var Settings = require("./settings.js");
 
 function init() {
     var textArea = document.getElementById("editor");
@@ -39,15 +40,31 @@ function init() {
         editor.setValue(value);
     }
 
+    var previousSettings = {};
+    Settings.apply = function (settings) {
+        if (previousSettings.fontSize !== settings.fontSize) {
+            jQuery(editorElement).css("font-size", settings.fontSize);
+            previousSettings.fontSize = settings.fontSize;
+            editor.refresh();
+        }
+        Settings.save(settings);
+    };
+
+    var settings = Settings.load(originalSize);
+    Settings.apply(settings);
+
     var slider = new Slider('#fontSizeSlider', {
         tooltip: "hide",
         tooltip_position: "bottom",
-        formatter: function (value) {
-        }
+        min: originalSize,
+        max: originalSize + 80,
+        step: 1,
+        value: settings.fontSize
     });
+
     slider.on('change', function (diff) {
-        jQuery(editorElement).css("font-size", originalSize + diff.newValue);
-        editor.refresh();
+        settings.fontSize = diff.newValue;
+        Settings.apply(settings);
     });
 
     jQuery('#print-button').click(function () {
