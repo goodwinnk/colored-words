@@ -148,6 +148,10 @@
 	        settings.isUpperCase = !settings.isUpperCase;
 	        Settings.apply(settings);
 	    };
+
+	    document.onclick = function() {
+	        editor.focus();
+	    };
 	}
 
 	function getQueryParams(qs) {
