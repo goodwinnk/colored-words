@@ -51,6 +51,9 @@
 	var Settings = __webpack_require__(9);
 
 	function init() {
+	    var BACKSPACE_KEY_CODE = 8;
+	    var DELETE_KEY_CODE = 46;
+
 	    var textArea = document.getElementById("editor");
 	    var editor = CodeMirror.fromTextArea(textArea, {
 	        mode: "kids",
@@ -63,6 +66,12 @@
 	    var keyIsDown = {};
 	    editor.on("keydown", function(cm, evt) {
 	        var code = evt.keyCode;
+	        console.log(code);
+
+	        if (code === BACKSPACE_KEY_CODE || code === DELETE_KEY_CODE) {
+	            return;
+	        }
+
 	        if (evt.repeat || keyIsDown[code]) {
 	            evt.preventDefault();
 	            return;
