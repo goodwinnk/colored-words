@@ -1,7 +1,7 @@
 (function(mod) {
-    if (typeof exports == "object" && typeof module == "object")
+    if (typeof exports === "object" && typeof module === "object")
         mod(require("../node_modules/codemirror/lib/codemirror"));
-    else if (typeof define == "function" && define.amd)
+    else if (typeof define === "function" && define.amd)
         define(["../node_modules/codemirror/lib/codemirror"], mod);
     else
         mod(CodeMirror);
@@ -17,7 +17,7 @@
 
         function tokenize(stream, state) {
             var ch = stream.next();
-            if (ch == null) return null;
+            if (ch === null) return null;
 
             if (vowels.indexOf(ch.toLowerCase()) !== -1) {
                 return "number";
