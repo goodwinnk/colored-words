@@ -20,7 +20,6 @@ function init() {
     var keyIsDown = {};
     editor.on("keydown", function(cm, evt) {
         var code = evt.keyCode;
-        console.log(code);
 
         if (code === BACKSPACE_KEY_CODE || code === DELETE_KEY_CODE) {
             return;
