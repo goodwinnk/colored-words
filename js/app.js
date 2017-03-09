@@ -80,11 +80,11 @@ function init() {
         Settings.apply(settings);
     });
 
-    jQuery('#print-button').click(function () {
+    document.getElementById('print-button').onclick = function () {
         window.print();
-    });
+    };
 
-    jQuery('#fill-vowels-button').click(function () {
+    document.getElementById('fill-vowels-button').onclick = function () {
         var span = jQuery(this).find('span');
 
         var style = "";
@@ -96,12 +96,12 @@ function init() {
         jQuery('#print').text(style);
 
         span.toggleClass("glyphicon-star").toggleClass("glyphicon-star-empty");
-    });
+    };
 
-    jQuery('#capslock-button').click(function () {
+    document.getElementById('capslock-button').onclick = function () {
         settings.isUpperCase = !settings.isUpperCase;
         Settings.apply(settings);
-    });
+    };
 }
 
 function getQueryParams(qs) {
