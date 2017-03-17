@@ -64,7 +64,7 @@
 	    });
 
 	    var keyIsDown = {};
-	    editor.on("keydown", function(cm, evt) {
+	    editor.on("keydown", function (cm, evt) {
 	        var code = evt.keyCode;
 
 	        if (code === BACKSPACE_KEY_CODE || code === DELETE_KEY_CODE) {
@@ -79,7 +79,7 @@
 	        keyIsDown[code] = true;
 	    });
 
-	    editor.on("keyup", function(cm, evt) {
+	    editor.on("keyup", function (cm, evt) {
 	        var code = evt.keyCode;
 	        if (keyIsDown[code]) {
 	            delete keyIsDown[code];
@@ -106,6 +106,28 @@
 	            previousSettings.isUpperCase = settings.isUpperCase;
 	            editor.refresh();
 	        }
+	        if (previousSettings.isHollowLetters !== settings.isHollowLetters) {
+	            var style = "";
+	            if (settings.isHollowLetters) {
+	                style =
+	                    ".cm-s-default .cm-number {color: #E8E8EE!important;}\n" +
+	                    ".cm-s-default .cm-comment {color: #E8E8EE!important;}";
+	            }
+	            jQuery('#print').text(style);
+
+	            function exchangeClasses(element, isFirst, first, second) {
+	                if (isFirst) {
+	                    element.removeClass(second).addClass(first);
+	                } else {
+	                    element.removeClass(first).addClass(second);
+	                }
+	            }
+
+	            exchangeClasses(
+	                jQuery("#fill-vowels-button-icon"), settings.isHollowLetters, "glyphicon-star-empty", "glyphicon-star");
+
+	            previousSettings.isHollowLetters = settings.isHollowLetters;
+	        }
 	        Settings.save(settings);
 	    };
 
@@ -131,17 +153,8 @@
 	    };
 
 	    document.getElementById('fill-vowels-button').onclick = function () {
-	        var span = jQuery(this).find('span');
-
-	        var style = "";
-	        if (span.hasClass("glyphicon-star")) {
-	            style =
-	                ".cm-s-default .cm-number {color: #E8E8EE!important;}\n" +
-	                ".cm-s-default .cm-comment {color: #E8E8EE!important;}";
-	        }
-	        jQuery('#print').text(style);
-
-	        span.toggleClass("glyphicon-star").toggleClass("glyphicon-star-empty");
+	        settings.isHollowLetters = !settings.isHollowLetters;
+	        Settings.apply(settings);
 	    };
 
 	    document.getElementById('capslock-button').onclick = function () {
@@ -149,7 +162,7 @@
 	        Settings.apply(settings);
 	    };
 
-	    document.onclick = function() {
+	    document.onclick = function () {
 	        editor.focus();
 	    };
 	}
@@ -9713,11 +9726,14 @@
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
 	    var FONT_SIZE_KEY = "font-size";
 	    var UPPERCASE_KEY = "uppercase";
+	    var HOLLOW_LETTERS = "hollow-letters";
 
 	    var obj = {};
 	    obj.load = function(defaultFontSize) {
 	        var fontSize = defaultFontSize;
 	        var isUpperCase = false;
+	        var isHollowLetters = false;
+
 	        if (typeof(Storage) !== "undefined") {
 	            var storedFontSizeStr = localStorage.getItem(FONT_SIZE_KEY);
 	            if (storedFontSizeStr !== null) {
@@ -9728,11 +9744,17 @@
 	            if (isUpperCaseStr !== null) {
 	                isUpperCase = (isUpperCaseStr === "true");
 	            }
+
+	            var isHollowLettersStr = localStorage.getItem(HOLLOW_LETTERS);
+	            if (isHollowLettersStr !== null) {
+	                isHollowLetters = (isHollowLettersStr === "true");
+	            }
 	        }
 
 	        return {
 	            fontSize: fontSize,
-	            isUpperCase: isUpperCase
+	            isUpperCase: isUpperCase,
+	            isHollowLetters: isHollowLetters
 	        };
 	    };
 
@@ -9743,6 +9765,7 @@
 
 	        localStorage.setItem(FONT_SIZE_KEY, settings.fontSize);
 	        localStorage.setItem(UPPERCASE_KEY, settings.isUpperCase);
+	        localStorage.setItem(HOLLOW_LETTERS, settings.isHollowLetters);
 	    };
 
 	    return obj;

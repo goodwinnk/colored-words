@@ -18,7 +18,7 @@ function init() {
     });
 
     var keyIsDown = {};
-    editor.on("keydown", function(cm, evt) {
+    editor.on("keydown", function (cm, evt) {
         var code = evt.keyCode;
 
         if (code === BACKSPACE_KEY_CODE || code === DELETE_KEY_CODE) {
@@ -33,7 +33,7 @@ function init() {
         keyIsDown[code] = true;
     });
 
-    editor.on("keyup", function(cm, evt) {
+    editor.on("keyup", function (cm, evt) {
         var code = evt.keyCode;
         if (keyIsDown[code]) {
             delete keyIsDown[code];
@@ -60,6 +60,28 @@ function init() {
             previousSettings.isUpperCase = settings.isUpperCase;
             editor.refresh();
         }
+        if (previousSettings.isHollowLetters !== settings.isHollowLetters) {
+            var style = "";
+            if (settings.isHollowLetters) {
+                style =
+                    ".cm-s-default .cm-number {color: #E8E8EE!important;}\n" +
+                    ".cm-s-default .cm-comment {color: #E8E8EE!important;}";
+            }
+            jQuery('#print').text(style);
+
+            function exchangeClasses(element, isFirst, first, second) {
+                if (isFirst) {
+                    element.removeClass(second).addClass(first);
+                } else {
+                    element.removeClass(first).addClass(second);
+                }
+            }
+
+            exchangeClasses(
+                jQuery("#fill-vowels-button-icon"), settings.isHollowLetters, "glyphicon-star-empty", "glyphicon-star");
+
+            previousSettings.isHollowLetters = settings.isHollowLetters;
+        }
         Settings.save(settings);
     };
 
@@ -85,17 +107,8 @@ function init() {
     };
 
     document.getElementById('fill-vowels-button').onclick = function () {
-        var span = jQuery(this).find('span');
-
-        var style = "";
-        if (span.hasClass("glyphicon-star")) {
-            style =
-                ".cm-s-default .cm-number {color: #E8E8EE!important;}\n" +
-                ".cm-s-default .cm-comment {color: #E8E8EE!important;}";
-        }
-        jQuery('#print').text(style);
-
-        span.toggleClass("glyphicon-star").toggleClass("glyphicon-star-empty");
+        settings.isHollowLetters = !settings.isHollowLetters;
+        Settings.apply(settings);
     };
 
     document.getElementById('capslock-button').onclick = function () {
@@ -103,7 +116,7 @@ function init() {
         Settings.apply(settings);
     };
 
-    document.onclick = function() {
+    document.onclick = function () {
         editor.focus();
     };
 }
