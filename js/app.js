@@ -50,6 +50,14 @@ function init() {
 
     var previousSettings = {};
     Settings.apply = function (settings) {
+        function exchangeClasses(element, isFirst, first, second) {
+            if (isFirst) {
+                element.removeClass(second).addClass(first);
+            } else {
+                element.removeClass(first).addClass(second);
+            }
+        }
+
         if (previousSettings.fontSize !== settings.fontSize) {
             jQuery(editorElement).css("font-size", settings.fontSize);
             previousSettings.fontSize = settings.fontSize;
@@ -57,6 +65,7 @@ function init() {
         }
         if (previousSettings.isUpperCase !== settings.isUpperCase) {
             jQuery(editorElement).css("text-transform", settings.isUpperCase ? "uppercase" : "none");
+            exchangeClasses(jQuery("#capslock-button-icon"), settings.isUpperCase, "glyphicon-upload", "glyphicon-download");
             previousSettings.isUpperCase = settings.isUpperCase;
             editor.refresh();
         }
@@ -68,14 +77,6 @@ function init() {
                     ".cm-s-default .cm-comment {color: #E8E8EE!important;}";
             }
             jQuery('#print').text(style);
-
-            function exchangeClasses(element, isFirst, first, second) {
-                if (isFirst) {
-                    element.removeClass(second).addClass(first);
-                } else {
-                    element.removeClass(first).addClass(second);
-                }
-            }
 
             exchangeClasses(
                 jQuery("#fill-vowels-button-icon"), settings.isHollowLetters, "glyphicon-star-empty", "glyphicon-star");
