@@ -8,6 +8,9 @@ function init() {
     var BACKSPACE_KEY_CODE = 8;
     var DELETE_KEY_CODE = 46;
 
+    var HOLLOW_STYLESHEET_LINK_NODE = document.getElementById('hollow_stylesheet');
+    HOLLOW_STYLESHEET_LINK_NODE.parentNode.removeChild(HOLLOW_STYLESHEET_LINK_NODE);
+
     var textArea = document.getElementById("editor");
     var editor = CodeMirror.fromTextArea(textArea, {
         mode: "kids",
@@ -70,13 +73,16 @@ function init() {
             editor.refresh();
         }
         if (previousSettings.isHollowLetters !== settings.isHollowLetters) {
-            var style = "";
+            var headNode = document.getElementsByTagName('head')[0];
             if (settings.isHollowLetters) {
-                style =
-                    ".cm-s-default .cm-number {color: #E8E8EE!important;}\n" +
-                    ".cm-s-default .cm-comment {color: #E8E8EE!important;}";
+                // Append after generates style elements inserted with webpack
+                headNode.appendChild(HOLLOW_STYLESHEET_LINK_NODE);
+            } else {
+                var lastChild = headNode.lastChild;
+                if (lastChild === HOLLOW_STYLESHEET_LINK_NODE) {
+                    headNode.removeChild(HOLLOW_STYLESHEET_LINK_NODE)
+                }
             }
-            jQuery('#print').text(style);
 
             exchangeClasses(
                 jQuery("#fill-vowels-button-icon"), settings.isHollowLetters, "glyphicon-star-empty", "glyphicon-star");

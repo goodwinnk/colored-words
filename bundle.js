@@ -54,6 +54,9 @@
 	    var BACKSPACE_KEY_CODE = 8;
 	    var DELETE_KEY_CODE = 46;
 
+	    var HOLLOW_STYLESHEET_LINK_NODE = document.getElementById('hollow_stylesheet');
+	    HOLLOW_STYLESHEET_LINK_NODE.parentNode.removeChild(HOLLOW_STYLESHEET_LINK_NODE);
+
 	    var textArea = document.getElementById("editor");
 	    var editor = CodeMirror.fromTextArea(textArea, {
 	        mode: "kids",
@@ -116,13 +119,16 @@
 	            editor.refresh();
 	        }
 	        if (previousSettings.isHollowLetters !== settings.isHollowLetters) {
-	            var style = "";
+	            var headNode = document.getElementsByTagName('head')[0];
 	            if (settings.isHollowLetters) {
-	                style =
-	                    ".cm-s-default .cm-number {color: #E8E8EE!important;}\n" +
-	                    ".cm-s-default .cm-comment {color: #E8E8EE!important;}";
+	                // Append after generates style elements inserted with webpack
+	                headNode.appendChild(HOLLOW_STYLESHEET_LINK_NODE);
+	            } else {
+	                var lastChild = headNode.lastChild;
+	                if (lastChild === HOLLOW_STYLESHEET_LINK_NODE) {
+	                    headNode.removeChild(HOLLOW_STYLESHEET_LINK_NODE)
+	                }
 	            }
-	            jQuery('#print').text(style);
 
 	            exchangeClasses(
 	                jQuery("#fill-vowels-button-icon"), settings.isHollowLetters, "glyphicon-star-empty", "glyphicon-star");
@@ -9668,7 +9674,7 @@
 
 
 	// module
-	exports.push([module.id, ".CodeMirror {\r\n    font-size: xx-large;\r\n    font-family: sans-serif;\r\n    font-weight: bold;\r\n    height: 100%;\r\n    width: 100%;\r\n}\r\n\r\n.cm-s-default .cm-number {color: #e21f1a!important;}\r\n.cm-s-default .cm-comment {color: #109432!important;}\r\n\r\nhtml,\r\nbody {\r\n    height: 100%;\r\n}\r\n\r\n.wrap {\r\n    min-height: 100%;\r\n    height: auto !important;\r\n    height: 100%;\r\n    margin: 0 auto -30px;\r\n}\r\n\r\n.footer-push,\r\n.footer {\r\n    height: 30px;\r\n}\r\n\r\n.footer {\r\n    width: 100%;\r\n    color: #666;\r\n    font-size: small;\r\n    text-align: center;\r\n}\r\n\r\n.footer>a {\r\n    color: #666\r\n}\r\n\r\n.smallALabel {\r\n    padding-right: 10px;\r\n    font-size: x-small;\r\n}\r\n\r\n.bigALabel {\r\n    font-size: x-large;\r\n    padding-left: 10px;\r\n}\r\n\r\n@media print {\r\n    footer {\r\n        display: none;\r\n    }\r\n}", ""]);
+	exports.push([module.id, ".CodeMirror {\r\n    font-size: xx-large;\r\n    font-family: sans-serif;\r\n    font-weight: bold;\r\n    height: 100%;\r\n    width: 100%;\r\n}\r\n\r\n.cm-s-default .cm-number {color: #e21f1a!important;}\r\n.cm-s-default .cm-comment {color: #109432!important;}\r\n\r\nhtml,\r\nbody {\r\n    height: 100%;\r\n}\r\n\r\n.wrap {\r\n    min-height: 100%;\r\n    height: 100%;\r\n    margin: 0 auto -30px;\r\n}\r\n\r\n.footer-push,\r\n.footer {\r\n    height: 30px;\r\n}\r\n\r\n.footer {\r\n    width: 100%;\r\n    color: #666;\r\n    font-size: small;\r\n    text-align: center;\r\n}\r\n\r\n.footer>a {\r\n    color: #666\r\n}\r\n\r\n.smallALabel {\r\n    padding-right: 10px;\r\n    font-size: x-small;\r\n}\r\n\r\n.bigALabel {\r\n    font-size: x-large;\r\n    padding-left: 10px;\r\n}\r\n\r\n@media print {\r\n    footer {\r\n        display: none;\r\n    }\r\n}", ""]);
 
 	// exports
 
