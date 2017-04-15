@@ -1,1 +1,1 @@
-https://goodwinnk.github.io/colored-words/
+http://abc.namtadam.com
