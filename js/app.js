@@ -99,7 +99,7 @@ function init() {
         tooltip: "hide",
         tooltip_position: "bottom",
         min: originalSize,
-        max: originalSize + 80,
+        max: originalSize + 120,
         step: 1,
         value: settings.fontSize
     });
