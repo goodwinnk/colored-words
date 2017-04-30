@@ -1,12 +1,12 @@
 @media print {
     .cm-s-default .cm-number, .cm-comment {
         color: rgba(0, 0, 0, 0) !important;
-        text-shadow: 0 0 0 whitesmoke !important;
+        text-shadow: 0 0 0 #eeeeee !important;
     }
 
     @media print and (-webkit-min-device-pixel-ratio: 0) {
         .cm-s-default .cm-number, .cm-comment {
-            color: whitesmoke !important;
+            color: #eeeeee !important;
             -webkit-print-color-adjust: exact !important;
         }
     }
