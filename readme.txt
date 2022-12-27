@@ -1,1 +1,0 @@
-http://abc.namtadam.com
